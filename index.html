@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="css/qgis2web.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title>Mapa Catasto Comuna 19</title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script><script src="js/L.Control.Locate.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+        <script src="data/Comuna19_1.js"></script>
+        <script src="data/Manzanas_2.js"></script>
+        <script src="data/Terrenos_3.js"></script>
+        <script src="data/Unidades_4.js"></script>
+        <script src="data/NomenclaturaDom_5.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:18, minZoom:13
+        })
+        var hash = new L.Hash(map);
+        map.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
+        L.control.locate().addTo(map);
+        var measureControl = new L.Control.Measure({
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+            if (bounds_group.getLayers().length) {
+                map.fitBounds(bounds_group.getBounds());
+            }
+            map.setMaxBounds(map.getBounds());
+        }
+        var overlay_ESRITopo_0 = L.tileLayer('http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+            opacity: 1.0
+        });
+        overlay_ESRITopo_0.addTo(map);
+        map.addLayer(overlay_ESRITopo_0);
+        function pop_Comuna19_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">COMUNA</th>\
+                        <td>' + (feature.properties['COMUNA'] !== null ? Autolinker.link(String(feature.properties['COMUNA'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">NOMBRE</th>\
+                        <td>' + (feature.properties['NOMBRE'] !== null ? Autolinker.link(String(feature.properties['NOMBRE'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">AREA</th>\
+                        <td>' + (feature.properties['AREA'] !== null ? Autolinker.link(String(feature.properties['AREA'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Comuna19_1_0() {
+            return {
+                pane: 'pane_Comuna19_1',
+                opacity: 1,
+                color: 'rgba(255,41,41,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(57,154,80,0.0)',
+            }
+        }
+        map.createPane('pane_Comuna19_1');
+        map.getPane('pane_Comuna19_1').style.zIndex = 401;
+        map.getPane('pane_Comuna19_1').style['mix-blend-mode'] = 'normal';
+        var layer_Comuna19_1 = new L.geoJson(json_Comuna19_1, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_Comuna19_1',
+            onEachFeature: pop_Comuna19_1,
+            style: style_Comuna19_1_0,
+        });
+        bounds_group.addLayer(layer_Comuna19_1);
+        map.addLayer(layer_Comuna19_1);
+        function pop_Manzanas_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">BARRIO</th>\
+                        <td>' + (feature.properties['BARRIO'] !== null ? Autolinker.link(String(feature.properties['BARRIO'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">MANZANA</th>\
+                        <td>' + (feature.properties['MANZANA'] !== null ? Autolinker.link(String(feature.properties['MANZANA'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">AREA</th>\
+                        <td>' + (feature.properties['AREA'] !== null ? Autolinker.link(String(feature.properties['AREA'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Manzanas_2_0() {
+            return {
+                pane: 'pane_Manzanas_2',
+                opacity: 1,
+                color: 'rgba(191,191,191,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(199,227,84,0.0)',
+            }
+        }
+        map.createPane('pane_Manzanas_2');
+        map.getPane('pane_Manzanas_2').style.zIndex = 402;
+        map.getPane('pane_Manzanas_2').style['mix-blend-mode'] = 'normal';
+        var layer_Manzanas_2 = new L.geoJson(json_Manzanas_2, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_Manzanas_2',
+            onEachFeature: pop_Manzanas_2,
+            style: style_Manzanas_2_0,
+        });
+        bounds_group.addLayer(layer_Manzanas_2);
+        map.addLayer(layer_Manzanas_2);
+        function pop_Terrenos_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">BARRIO</th>\
+                        <td>' + (feature.properties['BARRIO'] !== null ? Autolinker.link(String(feature.properties['BARRIO'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">MANZANA</th>\
+                        <td>' + (feature.properties['MANZANA'] !== null ? Autolinker.link(String(feature.properties['MANZANA'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">TERRENO</th>\
+                        <td>' + (feature.properties['TERRENO'] !== null ? Autolinker.link(String(feature.properties['TERRENO'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">PREDIO</th>\
+                        <td>' + (feature.properties['PREDIO'] !== null ? Autolinker.link(String(feature.properties['PREDIO'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">NPN</th>\
+                        <td>' + (feature.properties['NPN'] !== null ? Autolinker.link(String(feature.properties['NPN'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">NUMEPRED</th>\
+                        <td>' + (feature.properties['NUMEPRED'] !== null ? Autolinker.link(String(feature.properties['NUMEPRED'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">NOM_EDIFIC</th>\
+                        <td>' + (feature.properties['NOM_EDIFIC'] !== null ? Autolinker.link(String(feature.properties['NOM_EDIFIC'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ETIQUETA</th>\
+                        <td>' + (feature.properties['ETIQUETA'] !== null ? Autolinker.link(String(feature.properties['ETIQUETA'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">CONEXION</th>\
+                        <td>' + (feature.properties['CONEXION'] !== null ? Autolinker.link(String(feature.properties['CONEXION'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">AREA</th>\
+                        <td>' + (feature.properties['AREA'] !== null ? Autolinker.link(String(feature.properties['AREA'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Terrenos_3_0() {
+            return {
+                pane: 'pane_Terrenos_3',
+                opacity: 1,
+                color: 'rgba(202,202,202,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(178,112,136,0.0)',
+            }
+        }
+        map.createPane('pane_Terrenos_3');
+        map.getPane('pane_Terrenos_3').style.zIndex = 403;
+        map.getPane('pane_Terrenos_3').style['mix-blend-mode'] = 'normal';
+        var layer_Terrenos_3 = new L.geoJson(json_Terrenos_3, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_Terrenos_3',
+            onEachFeature: pop_Terrenos_3,
+            style: style_Terrenos_3_0,
+        });
+        bounds_group.addLayer(layer_Terrenos_3);
+        map.addLayer(layer_Terrenos_3);
+        function pop_Unidades_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">EDIFPRED</th>\
+                        <td>' + (feature.properties['EDIFPRED'] !== null ? Autolinker.link(String(feature.properties['EDIFPRED'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">PISOPRED</th>\
+                        <td>' + (feature.properties['PISOPRED'] !== null ? Autolinker.link(String(feature.properties['PISOPRED'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">U_DESTINOS</th>\
+                        <td>' + (feature.properties['U_DESTINOS'] !== null ? Autolinker.link(String(feature.properties['U_DESTINOS'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">TIPO_CONS</th>\
+                        <td>' + (feature.properties['TIPO_CONS'] !== null ? Autolinker.link(String(feature.properties['TIPO_CONS'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ETIQUETA</th>\
+                        <td>' + (feature.properties['ETIQUETA'] !== null ? Autolinker.link(String(feature.properties['ETIQUETA'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Unidades_4_0() {
+            return {
+                pane: 'pane_Unidades_4',
+                opacity: 1,
+                color: 'rgba(193,193,193,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(200,200,200,0.0)',
+            }
+        }
+        map.createPane('pane_Unidades_4');
+        map.getPane('pane_Unidades_4').style.zIndex = 404;
+        map.getPane('pane_Unidades_4').style['mix-blend-mode'] = 'normal';
+        var layer_Unidades_4 = new L.geoJson(json_Unidades_4, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_Unidades_4',
+            onEachFeature: pop_Unidades_4,
+            style: style_Unidades_4_0,
+        });
+        bounds_group.addLayer(layer_Unidades_4);
+        map.addLayer(layer_Unidades_4);
+        function pop_NomenclaturaDom_5(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">PLACA</th>\
+                        <td>' + (feature.properties['PLACA'] !== null ? Autolinker.link(String(feature.properties['PLACA'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_NomenclaturaDom_5_0() {
+            return {
+                pane: 'pane_NomenclaturaDom_5',
+                opacity: 1,
+                color: 'rgba(179,179,179,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+            }
+        }
+        map.createPane('pane_NomenclaturaDom_5');
+        map.getPane('pane_NomenclaturaDom_5').style.zIndex = 405;
+        map.getPane('pane_NomenclaturaDom_5').style['mix-blend-mode'] = 'normal';
+        var layer_NomenclaturaDom_5 = new L.geoJson(json_NomenclaturaDom_5, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_NomenclaturaDom_5',
+            onEachFeature: pop_NomenclaturaDom_5,
+            style: style_NomenclaturaDom_5_0,
+        });
+        bounds_group.addLayer(layer_NomenclaturaDom_5);
+        map.addLayer(layer_NomenclaturaDom_5);
+        var title = new L.Control();
+        title.onAdd = function (map) {
+            this._div = L.DomUtil.create('div', 'info');
+            this.update();
+            return this._div;
+        };
+        title.update = function () {
+            this._div.innerHTML = '<h2>Mapa Catasto Comuna 19</h2>';
+        };
+        title.addTo(map);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/NomenclaturaDom_5.png" /> Nomenclatura Dom': layer_NomenclaturaDom_5,'<img src="legend/Unidades_4.png" /> Unidades': layer_Unidades_4,'<img src="legend/Terrenos_3.png" /> Terrenos': layer_Terrenos_3,'<img src="legend/Manzanas_2.png" /> Manzanas': layer_Manzanas_2,'<img src="legend/Comuna19_1.png" /> Comuna 19': layer_Comuna19_1,"ESRI Topo": overlay_ESRITopo_0,}).addTo(map);
+        setBounds();
+        </script>
+    </body>
+</html>
